@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+
+message ModelItem {
+    // DNNModel::Count 的二进制
+    bytes count = 1;
+    // const int16 *的二进制
+    bytes embedding_weight = 2;
+    // const int16 *的二进制
+    bytes lr_weight = 3;
+    // 秒为单位的过期时间
+    uint32 expire_timet = 4;
+    // 签名
+    uint64 sign = 5;
+    // slot
+    int32 slot = 6;
+};
+
+message ModelUpdateMessage {
+    repeated ModelItem item = 1;
+    bool has_count = 2;
+    // embedding_weight_size = -1 : 动态长度的 embedding
+    // embeddign_weight_size = 0 : 不带 embedding
+    int32 embedding_weight_size = 3;
+    int32 lr_weight_size = 4;
+};
